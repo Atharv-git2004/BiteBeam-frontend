@@ -2,7 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext(null);
 
-const API_URL = "http://localhost:5000/api";
+// Environment Variable ഉപയോഗിച്ച് Dynamic API URL സെറ്റ് ചെയ്യുന്നു
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = `${BASE_URL}/api`;
 
 // Built-in demo accounts for instant local testing and fallback
 const DEMO_USERS = {
@@ -124,7 +126,6 @@ export function AuthProvider({ children }) {
       });
       data = await res.json();
     } catch (networkErr) {
-      // Fallback for CORS or Network error so local testing/registration still works smoothly
       console.warn("Register: Network/CORS error — using local fallback registration", networkErr.message);
       const fallbackUser = {
         _id: "demo_user_" + Date.now(),
@@ -163,11 +164,11 @@ export function AuthProvider({ children }) {
       console.warn("Login: Network error —", networkErr.message);
       const demoUser = DEMO_USERS[cleanEmail];
       if (demoUser && (password === "password123" || password === "123456")) {
-        console.log("Login: using demo account fallback for", cleanemail);
+        console.log("Login: using demo account fallback for", cleanEmail);
         persist(demoUser, demoUser.token);
         return demoUser;
       }
-      throw new Error("Cannot reach the backend server on port 5000. Please make sure the server is running.");
+      throw new Error("Cannot reach the backend server. Please make sure the server is running.");
     }
 
     if (!res.ok) {

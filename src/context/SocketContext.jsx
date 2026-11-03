@@ -4,7 +4,8 @@ import { useAuth } from "./AuthContext";
 
 const SocketContext = createContext(null);
 
-const SOCKET_URL = "http://localhost:5000";
+// Environment Variable ഉപയോഗിച്ച് ഡൈനാമിക് സോക്കറ്റ് URL സെറ്റ് ചെയ്യുന്നു
+const SOCKET_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export function SocketProvider({ children }) {
   const { token, user } = useAuth();
