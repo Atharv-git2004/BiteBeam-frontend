@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  /* BiteBeam Dark Teal / Petrol Blue Palette */
+  --color-brand-50: #f0f9f9;
+  --color-brand-100: #dcf2f2;
+  --color-brand-200: #bce5e4;
+  --color-brand-300: #8ed3d1;
+  --color-brand-400: #4bb5b3;
+  --color-brand-500: #007a78;
+  --color-brand-600: #005c5e; /* User specified Petrol Blue / Dark Cyan */
+  --color-brand-700: #004b49; /* User specified Dark Teal / Deep Teal */
+  --color-brand-800: #003a38;
+  --color-brand-900: #002b29;
+  --color-brand-950: #001716;
+
+  /* Custom named teal colors */
+  --color-darkteal: #004b49;
+  --color-petrol: #005c5e;
+  --color-darkcyan: #007a78;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #1e293b;
+}
+
+/* Hide scrollbar for horizontal scroll containers */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom scrollbar for main content in Dark Teal theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #005c5e40;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #004b4980;
+}
