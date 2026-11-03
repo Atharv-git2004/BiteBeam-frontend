@@ -16,7 +16,7 @@ export default function Home() {
   const fetchDishes = async () => {
     setLoadingDishes(true);
     try {
-      const response = await fetch("http://localhost:5000/api/dishes");
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/dishes`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

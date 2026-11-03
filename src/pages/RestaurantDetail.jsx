@@ -21,8 +21,8 @@ export default function RestaurantDetail() {
       try {
         // 1. First try fetching from MongoDB backend API
         const [resRest, resDishes] = await Promise.all([
-          fetch(`http://localhost:5000/api/restaurants/${id}`),
-          fetch(`http://localhost:5000/api/dishes/restaurant/${id}`),
+          fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/restaurants/${id}`),
+          fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/dishes/restaurant/${id}`),
         ]);
 
         let mongoRest = null;

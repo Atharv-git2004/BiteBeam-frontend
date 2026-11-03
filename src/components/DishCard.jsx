@@ -1,10 +1,12 @@
 import React from 'react';
-import { Star, Minus, Plus, Utensils } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Star, Minus, Plus, Utensils, Zap } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const DishCard = ({ dish, restaurantId, restaurantName }) => {
   const { getItemQuantity, addItem, removeItem } = useCart();
-  
+  const navigate = useNavigate();
+
   // Resolve ID for both MongoDB (_id) and mock data (id)
   const dishId = dish._id || dish.id;
   const quantity = getItemQuantity(dishId);
@@ -15,6 +17,12 @@ const DishCard = ({ dish, restaurantId, restaurantName }) => {
 
   const fallbackImage =
     "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=60";
+
+  const handleBuyNow = () => {
+    // Add the item (or increment) then immediately go to cart
+    addItem({ ...dish, id: dishId }, resolvedRestId, resolvedRestName);
+    navigate('/cart');
+  };
 
   return (
     <div className="flex flex-row justify-between gap-4 py-6 border-b border-gray-100 bg-white group">
@@ -34,7 +42,7 @@ const DishCard = ({ dish, restaurantId, restaurantName }) => {
               }`}
             />
           </div>
-          
+
           {/* Bestseller Badge */}
           {dish.isBestseller && (
             <div className="flex items-center gap-1 text-xs font-semibold text-[#004B49] bg-[#f0f9f9] border border-[#bce5e4] px-1.5 py-0.5 rounded">
@@ -43,7 +51,7 @@ const DishCard = ({ dish, restaurantId, restaurantName }) => {
             </div>
           )}
 
-          {/* Restaurant Origin Badge (if on home page or global menu) */}
+          {/* Restaurant Origin Badge */}
           {resolvedRestName && (
             <span className="flex items-center gap-1 text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
               <Utensils className="w-3 h-3 text-[#005C5E]" />
@@ -57,7 +65,7 @@ const DishCard = ({ dish, restaurantId, restaurantName }) => {
           {dish.name}
         </h3>
         <p className="text-base font-bold text-[#004B49] mb-1">₹{dish.price}</p>
-        
+
         {/* Rating & Category */}
         <div className="flex items-center gap-3 mb-2">
           {dish.rating && (
@@ -79,6 +87,15 @@ const DishCard = ({ dish, restaurantId, restaurantName }) => {
             {dish.description}
           </p>
         )}
+
+        {/* Buy Now Button — visible below description */}
+        <button
+          onClick={handleBuyNow}
+          className="mt-3 inline-flex items-center gap-1.5 bg-gradient-to-r from-[#004B49] to-[#005C5E] hover:from-[#003837] hover:to-[#004B49] text-white font-bold text-[11px] px-4 py-2 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95 w-fit"
+        >
+          <Zap className="w-3.5 h-3.5" fill="currentColor" />
+          Buy Now
+        </button>
       </div>
 
       {/* RIGHT SIDE */}
@@ -91,7 +108,7 @@ const DishCard = ({ dish, restaurantId, restaurantName }) => {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </div>
-        
+
         {/* ADD Button / Stepper */}
         <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-24">
           {quantity === 0 ? (

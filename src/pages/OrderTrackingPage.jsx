@@ -20,7 +20,7 @@ import { useAuth } from "../context/AuthContext";
 import { useSocket } from "../context/SocketContext";
 import LiveMap from "../components/LiveMap";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api`;
 
 // ── Stepper with 5 detailed stages ──────────────────────────────────────────
 const STEPS = [

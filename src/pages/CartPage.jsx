@@ -262,7 +262,7 @@ export default function CartPage() {
         paymentMethod: 'Online UPI',
       };
 
-      const res = await fetch('http://localhost:5000/api/orders', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Upload, X, Check, Image as ImageIcon, Loader2, AlertCircle } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api`;
 
 export default function FileUpload({
   label = "Upload Image",

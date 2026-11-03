@@ -9,7 +9,7 @@ export default function RestaurantList({ activeCategory }) {
 
   useEffect(() => {
     let isMounted = true;
-    fetch("http://localhost:5000/api/restaurants")
+    fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/restaurants`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch restaurants");
         return res.json();
